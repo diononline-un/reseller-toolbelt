@@ -1,0 +1,79 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Farbwelt: Light = klassisch weiß, Dark = invertiert (Default). RGB-Tripel für Tailwind-Opacity. */
+:root {
+  --paper: 255 255 255;
+  --ink: 0 0 0;
+  --gray1: 229 229 229;
+  --gray2: 179 179 179;
+  --gray3: 107 107 107;
+  --gray4: 43 43 43;
+  --signal: 255 43 43;
+  --shadow-c: 0 0 0;
+  --dot: 0 0 0;
+  --dot-light: 229 229 229;
+}
+
+html.dark {
+  --paper: 11 11 11;
+  --ink: 242 242 242;
+  --gray1: 43 43 43;
+  --gray2: 74 74 74;
+  --gray3: 154 154 154;
+  --gray4: 216 216 216;
+  --signal: 255 77 77;
+  --shadow-c: 242 242 242;
+  --dot: 242 242 242;
+  --dot-light: 43 43 43;
+}
+
+@layer base {
+  html {
+    @apply bg-paper text-ink;
+    image-rendering: pixelated;
+  }
+  body {
+    @apply font-sans antialiased;
+  }
+  ::selection {
+    @apply bg-ink text-paper;
+  }
+}
+
+@layer components {
+  .btn-pixel {
+    @apply inline-flex items-center justify-center gap-2 border-2 border-ink bg-paper px-4 py-2
+      font-display uppercase tracking-wide text-ink shadow-pixel-sm transition-none
+      hover:bg-ink hover:text-paper active:translate-x-[2px] active:translate-y-[2px] active:shadow-none
+      disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-paper disabled:hover:text-ink;
+  }
+  .btn-pixel-solid {
+    @apply btn-pixel bg-ink text-paper hover:bg-paper hover:text-ink;
+  }
+  .btn-pixel-danger {
+    @apply btn-pixel border-signal bg-signal text-paper hover:bg-paper hover:text-signal;
+  }
+  .card-pixel {
+    @apply border-2 border-ink bg-paper shadow-pixel;
+  }
+  .input-pixel {
+    @apply w-full border-2 border-ink bg-paper px-3 py-2 font-mono text-sm outline-none
+      placeholder:text-gray3 focus:bg-gray1;
+  }
+  .label-pixel {
+    @apply mb-1 block font-display text-xs uppercase tracking-widest;
+  }
+  .mono-counter {
+    @apply font-mono text-sm;
+  }
+  .halftone {
+    background-image: radial-gradient(circle, rgb(var(--dot)) 1px, transparent 1px);
+    background-size: 8px 8px;
+  }
+  .halftone-light {
+    background-image: radial-gradient(circle, rgb(var(--dot-light)) 1px, transparent 1px);
+    background-size: 8px 8px;
+  }
+}
